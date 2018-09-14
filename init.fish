@@ -51,6 +51,7 @@ abbr -a gfp 'git fetch -p'
 abbr -a gg 'git grep -i'
 abbr -a ggc 'git grep'
 abbr -a gl 'git log --name-status'
+abbr -a glp 'git log -p'
 abbr -a gm 'git merge --ff-only'
 abbr -a gmd 'git merge --ff-only develop'
 abbr -a gmmc 'git merge --no-ff'
@@ -72,7 +73,7 @@ function gclb -d "Clean local branch in git"
 	git branch --no-column -q --no-color | \
 		awk '{print $1}' | \
 		egrep -v '(master|develop|\*)' | \
-		xargs git branch -d
+		xargs --no-run-if-empty git branch -d
 end
 
 function gcbod -d "Checkout new branch from origin/develop"
