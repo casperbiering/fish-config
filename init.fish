@@ -70,6 +70,9 @@ abbr -a gsh 'git show'
 abbr -a gst 'git stash'
 abbr -a gstp 'git stash pop'
 
+# Docker abbr
+abbr -a dl 'docker-compose logs -f --tail=10'
+
 function gclb -d "Clean local branch in git"
 	git branch --no-column -q --no-color | \
 		awk '{print $1}' | \
