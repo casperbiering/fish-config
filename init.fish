@@ -41,12 +41,15 @@ abbr -a gap 'git add -p'
 abbr -a gb 'git branch'
 abbr -a gba 'git branch -a'
 abbr -a gbc 'git checkout -b'
+abbr -a gbcod 'git-checkout-branch-origin-develop'
 abbr -a gc 'git checkout'
 abbr -a gcb 'git checkout -b'
+abbr -a gcbod 'git-checkout-branch-origin-develop'
 abbr -a gcd 'git checkout develop'
 abbr -a gcf 'git clean -d -f'
 abbr -a gci 'git commit'
 abbr -a gcia 'git commit --amend'
+abbr -a gclb 'git-clean-local-branches'
 abbr -a gcm 'git checkout master'
 abbr -a gcn 'git clean -d -n'
 abbr -a gcp 'git checkout -p'
@@ -78,14 +81,15 @@ abbr -a gstp 'git stash pop'
 # Docker abbr
 abbr -a dl 'docker-compose logs -f --tail=10'
 
-function gclb -d "Clean local branch in git"
+# functions
+function git-clean-local-branches -d "Clean local branches in git repo"
 	git branch --no-column -q --no-color | \
 		awk '{print $1}' | \
 		egrep -v '(master|develop|\*)' | \
 		xargs --no-run-if-empty git branch -d
 end
 
-function gcbod -d "Checkout new branch from origin/develop"
+function git-checkout-branch-origin-develop -d "Checkout new branch from origin/develop"
 	gcb "$1" origin/develop
 	gb --unset-upstream
 end
