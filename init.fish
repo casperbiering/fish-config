@@ -6,7 +6,12 @@
 # * $dependencies  package dependencies
 
 # Expand user path
-set -xg PATH $PATH ~/.local/bin
+if test -d ~/.local/bin
+	set -xg PATH $PATH ~/.local/bin
+end
+if test -d ~/bin
+	set -xg PATH $PATH ~/bin
+end
 
 # Configure bobthefish theme
 set -g theme_display_git_master_branch yes
