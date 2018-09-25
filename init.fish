@@ -90,6 +90,6 @@ function git-clean-local-branches -d "Clean local branches in git repo"
 end
 
 function git-checkout-branch-origin-develop -d "Checkout new branch from origin/develop"
-	gcb "$1" origin/develop
-	gb --unset-upstream
+	git checkout -b "$argv[1]" origin/develop
+	git branch --unset-upstream
 end
