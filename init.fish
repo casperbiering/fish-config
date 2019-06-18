@@ -34,6 +34,8 @@ set -g theme_display_git_ahead_verbose yes
 # Misc abbr
 abbr -a -- - 'cd -'
 abbr -a l1 'less --shift 1'
+abbr -a g 'grep'
+abbr -a gi 'grep -i'
 
 # Git abbr
 abbr -a ga 'git add'
