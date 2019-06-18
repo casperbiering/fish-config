@@ -84,6 +84,35 @@ abbr -a gstp 'git stash pop'
 # Docker abbr
 abbr -a dl 'docker-compose logs -f --tail=10'
 
+# Kubectl
+abbr -a k 'kubectl'
+
+abbr -a kg 'kubectl get'
+abbr -a kgd 'kubectl get deployment'
+abbr -a kgp 'kubectl get pods'
+abbr -a kgi 'kubectl get ingress'
+abbr -a kgs 'kubectl get service'
+abbr -a kgse 'kubectl get secret'
+abbr -a kgc 'kubectl get configmap'
+abbr -a kgn 'kubectl get namespaces'
+abbr -a kgno 'kubectl get nodes'
+
+abbr -a kd 'kubectl describe'
+abbr -a kdd 'kubectl describe deployment'
+abbr -a kdp 'kubectl describe pods'
+abbr -a kdi 'kubectl describe ingress'
+abbr -a kds 'kubectl describe service'
+abbr -a kdse 'kubectl describe secret'
+abbr -a kdc 'kubectl describe configmap'
+abbr -a kdn 'kubectl describe namespaces'
+abbr -a kdno 'kubectl describe nodes'
+
+abbr -a kl 'kubectl logs -f --tail=10'
+abbr -a kdel 'kubectl delete'
+abbr -a kapp 'kubectl apply'
+abbr -a kex 'kubectl exec -t -i'
+abbr -a kp 'kubectl proxy'
+
 # functions
 function git-clean-local-branches -d "Clean local branches in git repo"
 	git branch --no-column -q --no-color | \
