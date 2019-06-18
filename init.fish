@@ -12,6 +12,9 @@ end
 if test -d ~/bin
 	set -xg PATH $PATH ~/bin
 end
+if test -d ~/.jx/bin
+	set -xg PATH $PATH ~/.jx/bin
+end
 
 # Configure bobthefish theme
 set -g theme_display_git_master_branch yes
