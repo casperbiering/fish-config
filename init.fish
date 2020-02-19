@@ -5,22 +5,23 @@
 # * $path          package path
 # * $dependencies  package dependencies
 
+
 # Expand user path
-if test -d ~/.local/bin
-	set -xg PATH $PATH ~/.local/bin
+function casperbiering-add-path -d "Add paths without duplicates"
+	if test -d $argv[1]
+		contains -- $argv[1] $PATH
+			or set -p -gx PATH $argv[1]
+	end
 end
-if test -d ~/bin
-	set -xg PATH $PATH ~/bin
-end
-if test -d ~/.jx/bin
-	set -xg PATH $PATH ~/.jx/bin
-end
+casperbiering-add-path ~/.local/bin
+casperbiering-add-path ~/bin
+casperbiering-add-path ~/go/bin
 
 # Configure bobthefish theme
 set -g theme_display_git_master_branch yes
 set -g theme_display_vagrant no
 set -g theme_title_display_process yes
-set -g theme_display_k8s_context no
+set -g theme_display_k8s_context yes
 set -g theme_display_virtualenv no
 set -g theme_display_hg no
 set -g theme_display_ruby no
@@ -35,96 +36,117 @@ set -g theme_display_git_ahead_verbose yes
 #set -g theme_powerline_fonts no
 
 # Misc abbr
-abbr -a -- - 'cd -'
-abbr -a l1 'less --shift 1'
-abbr -a g 'grep'
-abbr -a gi 'grep -i'
+abbr -a -g -- - 'cd -'
+abbr -a -g l 'less --shift 1'
+abbr -a -g d 'diff -Naurw'
+abbr -a -g g 'grep'
+abbr -a -g gi 'grep -i'
+abbr -a -g chx 'chmod +x'
+abbr -a -g ssh-itops 'ssh -i ~/.ssh/id_rsa.tgtg-itops -l ec2-user'
+abbr -a -g ssh-data-ops 'ssh -i ~/.ssh/id_rsa.tgtg-data-ops -l ec2-user'
 
 # Git abbr
-abbr -a ga 'git add'
-abbr -a gap 'git add -p'
-abbr -a gb 'git branch'
-abbr -a gba 'git branch -a'
-abbr -a gbc 'git checkout -b'
-abbr -a gbcod 'git-checkout-branch-origin-develop'
-abbr -a gc 'git checkout'
-abbr -a gcb 'git checkout -b'
-abbr -a gcbod 'git-checkout-branch-origin-develop'
-abbr -a gcd 'git checkout develop'
-abbr -a gcf 'git clean -d -f'
-abbr -a gci 'git commit'
-abbr -a gcia 'git commit --amend'
-abbr -a gclb 'git-clean-local-branches'
-abbr -a gcm 'git checkout master'
-abbr -a gcn 'git clean -d -n'
-abbr -a gcp 'git checkout -p'
-abbr -a gd 'git diff'
-abbr -a gdc 'git diff --cached'
-abbr -a gf 'git fetch'
-abbr -a gfp 'git fetch -p'
-abbr -a gg 'git grep -i'
-abbr -a ggc 'git grep'
-abbr -a gl 'git log --name-status'
-abbr -a glp 'git log -p'
-abbr -a gm 'git merge --ff-only'
-abbr -a gmd 'git merge --ff-only develop'
-abbr -a gmmc 'git merge --no-ff'
-abbr -a gmt 'git mergetool'
-abbr -a gph 'git push'
-abbr -a gphf 'git push -f'
-abbr -a gphod 'git push origin HEAD:develop'
-abbr -a gphu 'git push -u'
-abbr -a gpl 'git pull'
-abbr -a gr 'git reset'
-abbr -a grb 'git rebase -i'
-abbr -a grh 'git reset HEAD'
-abbr -a grod 'git rebase -i origin/develop'
-abbr -a gs 'git status'
-abbr -a gsh 'git show'
-abbr -a gst 'git stash'
-abbr -a gstp 'git stash pop'
+abbr -a -g ga 'git add'
+abbr -a -g gap 'git add -p'
+abbr -a -g gb 'git branch'
+abbr -a -g gba 'git branch -a'
+abbr -a -g gbc 'git checkout -b'
+abbr -a -g gbcod 'git-checkout-branch-origin-develop'
+abbr -a -g gc 'git checkout'
+abbr -a -g gcb 'git checkout -b'
+abbr -a -g gcbod 'git-checkout-branch-origin-develop'
+abbr -a -g gcd 'git checkout develop'
+abbr -a -g gcf 'git clean -d -f'
+abbr -a -g gci 'git commit'
+abbr -a -g gcia 'git commit --amend'
+abbr -a -g gclb 'git-clean-local-branches'
+abbr -a -g gcm 'git checkout master'
+abbr -a -g gcn 'git clean -d -n'
+abbr -a -g gcp 'git checkout -p'
+abbr -a -g gd 'git diff'
+abbr -a -g gdc 'git diff --cached'
+abbr -a -g gf 'git fetch'
+abbr -a -g gfp 'git fetch -p'
+abbr -a -g gg 'git grep -i'
+abbr -a -g ggc 'git grep'
+abbr -a -g gl 'git log --name-status'
+abbr -a -g glp 'git log -p'
+abbr -a -g gm 'git merge --ff-only'
+abbr -a -g gmd 'git merge --ff-only develop'
+abbr -a -g gmmc 'git merge --no-ff'
+abbr -a -g gmt 'git mergetool'
+abbr -a -g gph 'git push'
+abbr -a -g gphf 'git push -f'
+abbr -a -g gphod 'git push origin HEAD:develop'
+abbr -a -g gphu 'git push -u'
+abbr -a -g gpl 'git pull'
+abbr -a -g gr 'git reset'
+abbr -a -g grb 'git rebase -i'
+abbr -a -g grh 'git reset HEAD'
+abbr -a -g grm 'git rm'
+abbr -a -g grod 'git rebase -i origin/develop'
+abbr -a -g grom 'git rebase -i origin/master'
+abbr -a -g gs 'git status'
+abbr -a -g gsh 'git show'
+abbr -a -g gst 'git stash'
+abbr -a -g gstp 'git stash pop'
 
 # Docker abbr
-abbr -a dl 'docker-compose logs -f --tail=10'
+abbr -a -g dl 'docker-compose logs -f --tail=10'
+
+abbr -a -g kn kubens
+abbr -a -g kc kubectx
 
 # Kubectl
-abbr -a k 'kubectl'
+abbr -a -g k 'kubectl'
 
-abbr -a kg 'kubectl get'
-abbr -a kgd 'kubectl get deployment'
-abbr -a kgp 'kubectl get pods'
-abbr -a kgi 'kubectl get ingress'
-abbr -a kgs 'kubectl get service'
-abbr -a kgse 'kubectl get secret'
-abbr -a kgc 'kubectl get configmap'
-abbr -a kgn 'kubectl get namespaces'
-abbr -a kgno 'kubectl get nodes'
+abbr -a -g ke 'kubectl edit'
+abbr -a -g ked 'kubectl get deployment'
+abbr -a -g kep 'kubectl get pod'
+abbr -a -g kei 'kubectl get ingress'
+abbr -a -g kes 'kubectl get service'
+abbr -a -g kese 'kubectl get secret'
+abbr -a -g kec 'kubectl get configmap'
+abbr -a -g ken 'kubectl get namespace'
+abbr -a -g keno 'kubectl get node'
 
-abbr -a kd 'kubectl describe'
-abbr -a kdd 'kubectl describe deployment'
-abbr -a kdp 'kubectl describe pods'
-abbr -a kdi 'kubectl describe ingress'
-abbr -a kds 'kubectl describe service'
-abbr -a kdse 'kubectl describe secret'
-abbr -a kdc 'kubectl describe configmap'
-abbr -a kdn 'kubectl describe namespaces'
-abbr -a kdno 'kubectl describe nodes'
+abbr -a -g kg 'kubectl get'
+abbr -a -g kgd 'kubectl get deployment'
+abbr -a -g kgp 'kubectl get pod'
+abbr -a -g kgi 'kubectl get ingress'
+abbr -a -g kgs 'kubectl get service'
+abbr -a -g kgse 'kubectl get secret'
+abbr -a -g kgc 'kubectl get configmap'
+abbr -a -g kgn 'kubectl get namespace'
+abbr -a -g kgno 'kubectl get node'
 
-abbr -a kl 'kubectl logs -f --tail=10'
-abbr -a kdel 'kubectl delete'
-abbr -a kapp 'kubectl apply'
-abbr -a kex 'kubectl exec -t -i'
-abbr -a kp 'kubectl proxy'
+abbr -a -g kd 'kubectl describe'
+abbr -a -g kdd 'kubectl describe deployment'
+abbr -a -g kdp 'kubectl describe pod'
+abbr -a -g kdi 'kubectl describe ingress'
+abbr -a -g kds 'kubectl describe service'
+abbr -a -g kdse 'kubectl describe secret'
+abbr -a -g kdc 'kubectl describe configmap'
+abbr -a -g kdn 'kubectl describe namespace'
+abbr -a -g kdno 'kubectl describe node'
 
-# functions
-function git-clean-local-branches -d "Clean local branches in git repo"
-	git branch --no-column -q --no-color | \
-		awk '{print $1}' | \
-		egrep -v '(master|develop|\*)' | \
-		xargs --no-run-if-empty git branch -d
-end
+abbr -a -g krm 'kubectl delete'
+abbr -a -g krmd 'kubectl delete deployment'
+abbr -a -g krmp 'kubectl delete pod'
+abbr -a -g krmi 'kubectl delete ingress'
+abbr -a -g krms 'kubectl delete service'
+abbr -a -g krmse 'kubectl delete secret'
+abbr -a -g krmc 'kubectl delete configmap'
+abbr -a -g krmn 'kubectl delete namespace'
+abbr -a -g krmno 'kubectl delete node'
 
-function git-checkout-branch-origin-develop -d "Checkout new branch from origin/develop"
-	git checkout -b "$argv[1]" origin/develop
-	git branch --unset-upstream
-end
+abbr -a -g ka 'kubectl apply'
+abbr -a -g kaf 'kubectl apply -R -f'
+abbr -a -g kan 'kubectl apply -n'
+abbr -a -g kga 'kubectl get all'
+abbr -a -g kgaa 'kubectl get all -A'
+abbr -a -g kl 'kubectl logs -f --tail=10'
+abbr -a -g kla 'kubectl logs --all-containers=true -f --tail=10'
+abbr -a -g kapp 'kubectl apply'
+abbr -a -g kex 'kubectl exec -t -i'
+abbr -a -g kp 'kubectl proxy'
