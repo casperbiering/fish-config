@@ -7,15 +7,17 @@
 
 
 # Expand user path
-function casperbiering-add-path -d "Add paths without duplicates"
-	if test -d $argv[1]
-		contains -- $argv[1] $PATH
-			or set -p -gx PATH $argv[1]
-	end
-end
-casperbiering-add-path ~/.local/bin
-casperbiering-add-path ~/bin
-casperbiering-add-path ~/go/bin
+# function casperbiering-add-path -d "Add paths without duplicates"
+# 	if test -d $argv[1]
+# 		contains -- $argv[1] $PATH
+# 			or set -p -gx PATH $argv[1]
+# 	end
+# end
+# casperbiering-add-path ~/.local/bin
+# casperbiering-add-path ~/bin
+# casperbiering-add-path ~/go/bin
+
+fenv source ~/.profile
 
 # Configure bobthefish theme
 set -g theme_display_git_master_branch yes
@@ -37,8 +39,13 @@ set -g theme_display_git_ahead_verbose yes
 
 # Misc abbr
 abbr -a -g -- - 'cd -'
-abbr -a -g l 'less --shift 1'
+abbr -a -g l 'less'
 abbr -a -g d 'diff -Naurw'
+abbr -a -g b 'bat'
+abbr -a -g e 'exa'
+abbr -a -g el 'exa -l'
+abbr -a -g ea 'exa -a'
+abbr -a -g ela 'exa -la'
 abbr -a -g g 'grep'
 abbr -a -g gi 'grep -i'
 abbr -a -g chx 'chmod +x'
