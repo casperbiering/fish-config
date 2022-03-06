@@ -20,6 +20,7 @@
 fenv source ~/.profile
 
 # Configure bobthefish theme
+set -g theme_display_cmd_duration yes
 set -g theme_display_git_master_branch yes
 set -g theme_display_vagrant no
 set -g theme_title_display_process yes
@@ -30,8 +31,8 @@ set -g theme_display_ruby no
 set -g theme_display_vi no
 set -g theme_show_exit_status yes
 #set -g theme_title_display_user yes
-set -g fish_prompt_pwd_dir_length 4
-set -g theme_project_dir_length 4
+set -g fish_prompt_pwd_dir_length 8
+set -g theme_project_dir_length 8
 set -g theme_color_scheme dark
 set -g theme_display_git_ahead_verbose yes
 #set -g theme_display_git_dirty_verbose yes
@@ -42,10 +43,12 @@ abbr -a -g -- - 'cd -'
 abbr -a -g l 'less'
 abbr -a -g d 'diff -Naurw'
 abbr -a -g b 'bat'
-abbr -a -g e 'exa'
-abbr -a -g el 'exa -l'
-abbr -a -g ea 'exa -a'
-abbr -a -g ela 'exa -la'
+abbr -a -g ls 'lsd -1'
+abbr -a -g la 'lsd -1a'
+abbr -a -g ll 'lsd -l'
+abbr -a -g lla 'lsd -la'
+abbr -a -g lt 'lsd --tree'
+abbr -a -g llt 'lsd --tree -l'
 abbr -a -g g 'grep'
 abbr -a -g gi 'grep -i'
 abbr -a -g chx 'chmod +x'
@@ -67,7 +70,7 @@ abbr -a -g gcf 'git clean -d -f'
 abbr -a -g gci 'git commit'
 abbr -a -g gcia 'git commit --amend'
 abbr -a -g gclb 'git-clean-local-branches'
-abbr -a -g gcm 'git checkout master'
+abbr -a -g gcm 'git checkout main'
 abbr -a -g gcn 'git clean -d -n'
 abbr -a -g gcp 'git checkout -p'
 abbr -a -g gd 'git diff'
@@ -92,11 +95,19 @@ abbr -a -g grb 'git rebase -i'
 abbr -a -g grh 'git reset HEAD'
 abbr -a -g grm 'git rm'
 abbr -a -g grod 'git rebase -i origin/develop'
-abbr -a -g grom 'git rebase -i origin/master'
+abbr -a -g grom 'git rebase -i origin/main'
 abbr -a -g gs 'git status'
 abbr -a -g gsh 'git show'
 abbr -a -g gst 'git stash'
 abbr -a -g gstp 'git stash pop'
+
+# Terraform
+abbr -a -g tf 'terraform'
+abbr -a -g tfi 'terraform init'
+abbr -a -g tfr 'terraform apply -refresh-only'
+abbr -a -g tfp 'terraform plan -out out.tfplan -refresh=false'
+abbr -a -g tfaa 'terraform apply out.tfplan'
+abbr -a -g tfs 'terraform show -no-color out.tfplan | grep -E "^  #" | grep -v -E "(has changed|^  # \(because .* is not in .*\))\$"'
 
 # Docker abbr
 abbr -a -g dl 'docker-compose logs -f --tail=10'
