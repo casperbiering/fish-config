@@ -108,7 +108,7 @@ abbr -a -g tfr 'terraform apply -refresh-only'
 abbr -a -g tfp 'terraform plan -out out.tfplan -refresh=false'
 abbr -a -g tfaa 'terraform apply out.tfplan'
 abbr -a -g tfs 'terraform show -no-color out.tfplan | grep -E "^  #" | grep -v -E "^  # \(.*\)\$"'
-abbr -a -g tfc 'jq -r \'.Modules[]|select(.Version==null)|select(.Source|test("ref=v[0-9]+[.][0-9]+[.][0-9]+")|not)|select(.Source != "")|select(.Source|test("^../")|not)|.Dir\' .terraform/modules/modules.json|sed -E -e "s,^(\.terraform/modules/[^/]+)/.*,\1,"|grep -E "^\.terraform/modules/[^/]*\$"|xargs -tn 1 rm -r ; terraform get'
+abbr -a -g tfc 'jq -r \'.Modules[]|select(.Version==null)|select(.Source|test("ref=v[0-9]+[.][0-9]+[.][0-9]+")|not)|select(.Source|test("^(\\\\\\\.?\\\\\\\./|$)")|not)|.Dir|capture("^(?<a>.terraform/modules/[^/]+)(/|$)").a\' .terraform/modules/modules.json | xargs -tn 1 rm -r ; terraform get'
 
 # Docker abbr
 abbr -a -g dl 'docker-compose logs -f --tail=10'
